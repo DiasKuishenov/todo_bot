@@ -30,6 +30,7 @@ The bot supports:
 - Error handling
 - OOP structure using `TaskManager` class
 - CRUD operations
+- FSM states for easier interaction
 
 ---
 
@@ -55,6 +56,13 @@ todo_bot/
 ├── keyboards.py
 ├── task_manager.py
 ├── requirements.txt
+├── REPORT.md
+├── screenshots/
+│   ├── start.png
+│   ├── add_task.png
+│   ├── show.png
+│   ├── delete_task.png
+│   └── clear_tasks.png
 └── README.md
 ```
 
@@ -82,19 +90,23 @@ Commands:
 
 ```text
 /start
-/add task
+/add
 /show
-/delete number
+/delete
 /clear
-/help
 ```
 
 Examples:
 
 ```text
-/add Finish Python assignment
+/add
+Finish Python assignment
+
 /show
-/delete 1
+
+/delete
+1
+
 /clear
 ```
 
@@ -102,31 +114,62 @@ Examples:
 
 ## Screenshots
 
-Add screenshots of:
+### Start menu
 
-- Telegram bot interface
-- Adding tasks
-- Showing tasks
-- Deleting tasks
-- Keyboard buttons
+![Start](screenshots/start.png)
+
+### Add task
+
+![Add Task](screenshots/add_task.png)
+
+### Show tasks
+
+![Show Tasks](screenshots/show.png)
+
+### Delete task
+
+![Delete Task](screenshots/delete_task.png)
+
+### Clear tasks
+
+![Clear Tasks](screenshots/clear_tasks.png)
 
 ---
 
 ## Team Roles
 
 Student 1:
+
 - Backend logic
 - TaskManager class
 - JSON storage
 - CRUD operations
+- Telegram commands
 
 Student 2:
-- Telegram commands
-- Interface
-- Keyboard improvements
+
+- Interface improvements
+- Documentation
+- README and report
 
 Student 3:
-- README
-- Report
+
+- Testing
 - GitHub repository
-- Documentation
+- Project verification
+
+---
+
+## Conclusion
+
+The project successfully implements a Telegram To-Do Bot with task management features.
+
+The project demonstrates:
+
+- Python programming
+- aiogram framework
+- OOP concepts
+- JSON storage
+- CRUD operations
+- FSM state management
+- Telegram Bot API integration
