@@ -71,9 +71,9 @@ These problems were solved through testing and debugging.
 
 | Team Member | Contribution |
 |---|---|
-| Student 1 | Developed backend logic, TaskManager class, CRUD operations and JSON storage |
-| Student 2 | Implemented Telegram commands, handlers and interface improvements |
-| Student 3 | Prepared README, report, GitHub repository and documentation |
+| Student 1 | Developed backend logic, Telegram bot commands, TaskManager class, CRUD operations and JSON storage |
+| Student 2 | Prepared README, report and project documentation |
+| Student 3 | Tested the bot, verified commands and integrated project components |
 
 ---
 
@@ -89,11 +89,13 @@ This project improved practical skills in:
 - aiogram framework;
 - OOP concepts;
 - file handling;
-- exception handling.
+- exception handling;
+- Telegram Bot API usage.
 
 Future improvements:
 
 - database support;
 - reminders;
 - deadlines;
-- user authentication.
+- user authentication;
+- notifications for unfinished tasks.
