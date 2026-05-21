@@ -1,30 +1,43 @@
 from aiogram.types import Message
+from aiogram.fsm.state import State, StatesGroup
+from aiogram.fsm.context import FSMContext
 from task_manager import TaskManager
 
 manager = TaskManager()
 
 
-async def add_task(message: Message):
-    text = message.text.replace("/add ", "")
+class TaskStates(StatesGroup):
+    waiting_for_task = State()
+    waiting_for_delete = State()
 
-    if text == "/add" or text.strip() == "":
-        await message.answer(
-            "❌ Use: /add your task"
-        )
-        return
 
+async def add_task(message: Message, state: FSMContext):
+    await message.answer(
+        "📝 What task do you want to add?"
+    )
+
+    await state.set_state(
+        TaskStates.waiting_for_task
+    )
+
+
+async def save_task(message: Message, state: FSMContext):
     manager.add_task(
         message.from_user.id,
-        text
+        message.text
     )
 
     await message.answer(
         "✅ Task added"
     )
 
+    await state.clear()
+
 
 async def show_tasks(message: Message):
-    tasks = manager.show_tasks(message.from_user.id)
+    tasks = manager.show_tasks(
+        message.from_user.id
+    )
 
     if not tasks:
         await message.answer(
@@ -34,19 +47,54 @@ async def show_tasks(message: Message):
 
     result = "📋 Your tasks:\n\n"
 
-    for i, task in enumerate(tasks, start=1):
+    for i, task in enumerate(
+            tasks,
+            start=1
+    ):
         result += f"{i}. {task}\n"
 
-    await message.answer(result)
+    await message.answer(
+        result
+    )
 
 
-async def delete_task(message: Message):
+async def delete_task(message: Message, state: FSMContext):
+    tasks = manager.show_tasks(
+        message.from_user.id
+    )
+
+    if not tasks:
+        await message.answer(
+            "📭 No tasks"
+        )
+        return
+
+    result = "📋 Your tasks:\n"
+
+    for i, task in enumerate(
+            tasks,
+            start=1
+    ):
+        result += f"{i}. {task}\n"
+
+    result += "\n🗑 Enter task number:"
+
+    await message.answer(
+        result
+    )
+
+    await state.set_state(
+        TaskStates.waiting_for_delete
+    )
+
+
+async def confirm_delete(
+        message: Message,
+        state: FSMContext
+):
     try:
         index = int(
-            message.text.replace(
-                "/delete ",
-                ""
-            )
+            message.text
         ) - 1
 
         deleted = manager.delete_task(
@@ -66,8 +114,10 @@ async def delete_task(message: Message):
 
     except:
         await message.answer(
-            "❌ Use: /delete number"
+            "❌ Enter only number"
         )
+
+    await state.clear()
 
 
 async def clear_tasks(message: Message):

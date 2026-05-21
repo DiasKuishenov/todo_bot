@@ -8,9 +8,12 @@ from keyboards import main_keyboard
 
 from handlers import (
     add_task,
+    save_task,
     show_tasks,
     delete_task,
-    clear_tasks
+    confirm_delete,
+    clear_tasks,
+    TaskStates
 )
 
 bot = Bot(token=TOKEN)
@@ -45,10 +48,24 @@ dp.message.register(
     Command("clear")
 )
 
+dp.message.register(
+    save_task,
+    TaskStates.waiting_for_task
+)
+
+dp.message.register(
+    confirm_delete,
+    TaskStates.waiting_for_delete
+)
+
 
 async def main():
-    await dp.start_polling(bot)
+    await dp.start_polling(
+        bot
+    )
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    asyncio.run(
+        main()
+    )
